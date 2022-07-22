@@ -1,12 +1,19 @@
-const template = document.createElement('template');
+<!DOCTYPE html>
+<html lang="en">
 
-template.innerHTML = `
-<style>
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
         .iti__flag-container {
             color: #000;
         }
 
-        body, #formwork {
+        body {
             color: #fff;
             font: 16px "Open Sans", Helvetica, Arial, sans-serif;
             line-height: 1;
@@ -176,8 +183,12 @@ template.innerHTML = `
         .iti.iti--allow-dropdown {
             width: 100%;
         }
-    </style>        
-    <div id="formwork" style="width: 50%;background: #081047">
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div id="formwork" style="width: 50%;background: #081047">
             <form style="padding: 1rem 2rem 2rem 2rem" action="#" method="post" class="register-form">
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -204,9 +215,9 @@ template.innerHTML = `
                         <input type="text" class="form-control" id="email" name="phone" required="" />
                     </div>
                 </div>
-                <div id="privacy-container" class="checkbox-wrap valid">
-                    <input type="checkbox" name="politics" id="politics" checked />
-                    <label for="politics">I аgree to
+                <div class="checkbox-wrap valid">
+                    <input type="checkbox" name="politics" id="politics-77444" checked />
+                    <label for="politics-77444">I аgree to
                         <a target="_blank" href="/policy.html" class="alterlink">Privacy Policy</a>
                     </label>
                 </div>
@@ -221,70 +232,19 @@ template.innerHTML = `
                 </button>
             </form>
         </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
-`;
 
-import 'https://code.jquery.com/jquery-3.6.0.js';
-import 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.js';
-import 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.min.js';
-import 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js';
-
-class RegisterForm extends HTMLElement {
-    constructor() {
-        super();
-        // this._shadowRoot = this.attachShadow({ mode: 'open' });
-        // this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.appendChild(template.content.cloneNode(true));
-    }
-
-    connectedCallback() {
-        console.log('[CONNECTED]');
-
-        console.log('[SOURCE]', this.source);
-
-        console.log('[apiurl]', this.apiurl);
-
-        this.initiateIntlTelInput();
-        this.handleForm();
-
-        console.log(this.privacyHref);
-
-        if (this.privacyHref !== null) {
-            this.querySelector('#formwork #privacy-container .alterlink').setAttribute('href', this.privacyHref);
-        } else {
-            this.querySelector('#formwork #privacy-container').remove();
-        }
-    }
-
-    get source() {
-        return this.getAttribute('source');
-    }
-
-    get apiurl() {
-        return this.getAttribute('apiurl');
-    }
-
-    get privacyHref() {
-        return this.getAttribute('privacy-href');
-    }
-
-    get redirectHref() {
-        return this.getAttribute('redirect-href');
-    }
-
-    get submitButtonTitle() {
-        let title = this.getAttribute('submit-button-title');
-
-        if (title === null) {
-            title = 'Get Started Now';
-        }
-
-        return title;
-    }
-
-    initiateIntlTelInput() {
+    <script>
         window.addEventListener("load", function () {
             window.intlTelInputGlobals.windowLoaded = true;
         });
@@ -317,10 +277,9 @@ class RegisterForm extends HTMLElement {
                 },
             });
         }
-    }
+    </script>
 
-    handleForm() {
-        let component = this;
+    <script>
         window.addEventListener("load", function () {
             window.intlTelInputGlobals.windowLoaded = true;
         });
@@ -348,7 +307,6 @@ class RegisterForm extends HTMLElement {
                 geoIpLookup: function (success, failure) {
                     $.get("https://ipapi.co/json").always(function (resp) {
                         var countryCode = resp && resp.country ? resp.country : "us";
-                        console.log(countryCode);
                         success(countryCode);
                     });
                 },
@@ -439,35 +397,34 @@ class RegisterForm extends HTMLElement {
                     OK = false;
                 }
                 if (OK) {
-                    let url = "https://primeapi.telexsale.com/v1/webhooks/trackbox/lead";
-                    if (component.apiurl) {
-                        url = component.apiurl;
-                    }
-
-                    let source = window.location.host;
-
-                    if (component.source) {
-                        source = component.source;
-                    }
+                    let url_string = window.location.href;
+                    let url = new URL("https://lessoneu-quantum.info/url_string");
+                    let utm_sourceVal = url.searchParams.get("utm_source");
+                    let utm_contentVal = url.searchParams.get("utm_content");
+                    let utm_campaignVal = url.searchParams.get("utm_campaign");
+                    let utm_termVal = url.searchParams.get("utm_term");
+                    let utm_mediumVal = url.searchParams.get("utm_medium");
+                    let clickidVal = url.searchParams.get("clickid");
+                    let formtype = $(this).data("type");
+                    let answers = $(this).serializeArray();
 
                     $.ajax({
-                        url: url,
+                        url: "https://primeapi.telexsale.com/v1/webhooks/trackbox/lead",
                         type: "POST",
                         data: {
                             firstName: firstnameVal,
                             lastName: lastnameVal,
                             email: emailVal,
                             phone: phoneVal,
-                            source: source,
+                            source: window.location.host,
                         },
                         dataType: "json",
                         success: function (data) {
                             if (data.success) {
-                                let redirectHref = "registered.html";
-                                if (component.redirectHref) {
-                                    redirectHref = component.redirectHref;
-                                }
-                                window.location = redirectHref;
+                                window.location = "registered.html";
+                                // + window.location.search +
+                                // "&leadid=" +
+                                // data.data.leadid;
                             } else {
                                 if (data.success == false) {
                                     toastr.error(data.message, "Error!");
@@ -484,9 +441,7 @@ class RegisterForm extends HTMLElement {
                 }
             });
         });
-    }
+    </script>
+</body>
 
-
-}
-
-window.customElements.define('register-form', RegisterForm);
+</html>
